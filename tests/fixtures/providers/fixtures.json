@@ -1,0 +1,59 @@
+{
+  "spot.obj": {
+    "source": "https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/spot.zip",
+    "provider": "https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/",
+    "attribution": "Keenan Crane",
+    "terms": "CC0 1.0",
+    "source_sha256": "1d4082da4e940f6a4cfdf648fd77e1647ac613c618dbff933f1ba23fad254608",
+    "sha256": "4c2a560c006f98f8c5004507eea752677af568f04f6c33d1206e84e377ba6896",
+    "kind": "triangle-mesh",
+    "vertices": 2930,
+    "triangles": 5856,
+    "purpose": "Clean organic geometry with small features",
+    "cases": [
+      {
+        "name": "pure-quads",
+        "target_vertices": 500,
+        "flags": "-r 4 -p 4 -S 2"
+      }
+    ]
+  },
+  "stanford-bunny.obj": {
+    "source": "https://graphics.stanford.edu/pub/3Dscanrep/bunny.tar.gz",
+    "provider": "https://graphics.stanford.edu/data/3Dscanrep/",
+    "attribution": "Stanford Computer Graphics Laboratory, Greg Turk and Marc Levoy",
+    "terms": "Stanford repository terms. Research use with attribution. Commercial use requires permission.",
+    "source_sha256": "a5720bd96d158df403d153381b8411a727a1d73cff2f33dc9b212d6f75455b84",
+    "sha256": "205b80d216a4c4fd0a7e9a313e1ac37af0df0df068f1291cb969d4028136075c",
+    "kind": "triangle-mesh",
+    "vertices": 35947,
+    "triangles": 69451,
+    "purpose": "Scanned surface with five open boundaries",
+    "cases": [
+      {
+        "name": "pure-quads",
+        "target_vertices": 2500,
+        "flags": "-r 4 -p 4 -S 2"
+      }
+    ]
+  },
+  "stanford-armadillo.obj": {
+    "source": "https://graphics.stanford.edu/pub/3Dscanrep/armadillo/Armadillo.ply.gz",
+    "provider": "https://graphics.stanford.edu/data/3Dscanrep/",
+    "attribution": "Stanford Computer Graphics Laboratory",
+    "terms": "Stanford repository terms. Research use with attribution. Commercial use requires permission.",
+    "source_sha256": "8b9b56cc36e66d54429b1e1e75bd89e833645bfe0dc7c1afd1205877a7356a3f",
+    "sha256": "475f02e4adbcafb3ff3501c21b9db00957a2fb67cf1ddfb1380fc77291da445b",
+    "kind": "triangle-mesh",
+    "vertices": 172974,
+    "triangles": 345944,
+    "purpose": "High-density scan with limbs and fine surface detail",
+    "cases": [
+      {
+        "name": "pure-quads",
+        "target_vertices": 7000,
+        "flags": "-r 4 -p 4 -S 2"
+      }
+    ]
+  }
+}

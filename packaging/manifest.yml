@@ -1,0 +1,15 @@
+name: instant-meshes-rhino
+version: 1.0.0
+authors:
+  - Instant Meshes Rhino contributors
+description: >-
+  A C# rewrite of the Instant Meshes solver for Rhino and Grasshopper.
+  Inspired by the original Instant Meshes by Wenzel Jakob and collaborators.
+  https://github.com/wjakob/instant-meshes
+url: https://github.com/rhaberer/Instant-Meshes-Rhino
+keywords:
+  - mesh
+  - remesh
+  - retopology
+  - grasshopper
+icon: icon.png

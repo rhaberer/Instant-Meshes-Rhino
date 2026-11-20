@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../InstantMeshes.Core/InstantMeshes.Core.csproj" />
+    <PackageReference Include="RhinoCommon" Version="$(RhinoSdkVersion)" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>

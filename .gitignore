@@ -1,0 +1,16 @@
+# macOS Finder metadata
+.DS_Store
+._*
+
+# .NET build output and IDE state
+[Bb]in/
+[Oo]bj/
+.vs/
+*.rsuser
+*.suo
+*.user
+TestResults/
+__pycache__/
+
+# Generated packages, benchmarks, and parity reports
+/artifacts/

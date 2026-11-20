@@ -1,0 +1,14 @@
+# Source map
+
+The solver and host integrations are separate projects.
+
+- `src/InstantMeshes.Core` owns the single-worker managed solver and its public options, result and progress types. It has no Rhino dependency. `Remesher` copies the input, resolves density and connects preprocessing, hierarchy construction, field solving, graph and face extraction, and optional smoothing/reprojection.
+- `src/InstantMeshes.RhinoGeometry` snapshots Rhino meshes and oriented point clouds into owned local-coordinate arrays and converts results back. The first input vertex is retained as a double-precision origin. Rhino quads are split along A–C; seams and duplicate vertices are retained.
+- `src/InstantMeshes.Rhino` supplies the `InstantMeshesRemesh` command. It pumps host events during the worker solve, cancels on Escape or document close, and adds the result only if the original document remains open.
+- `src/InstantMeshes.Grasshopper` supplies the console-options and typed components for the Grasshopper bundled with Rhino 8. The shared base snapshots each input, serializes solver batches, cancels superseded work and publishes results on the UI thread. Component identities and input/output order are part of saved definitions.
+
+The mesh preprocessing representation uses directed triangle edges and compressed neighbor rows. Point preprocessing instead constructs oriented-neighbor rows through a spatial index. Both feed the same hierarchy and field stages. Hierarchy levels retain ordered links and parent/child maps. Graph coloring defines the order of field updates; stable arithmetic, score ties, reductions, SIMD lane ordering and BVH traversal are sensitive to evaluation order. The comments beside these paths identify the corresponding port constraints. The dense arrays and reusable scratch buffers are intentional performance choices.
+
+`tests/InstantMeshes.ConsoleOptions.Tests` exercises flag mapping. `tests/InstantMeshes.Parity` and `tests/reference` compare stages and output with the pinned C++ port. `tests/fixtures` holds extended geometry and attribution. Published benchmark results are under [benchmarks](benchmarks/). Private geometry and provider meshes remain local and are excluded from the Yak package. The Grasshopper project compiles the solver and adapter directly from the shared source files. The Rhino command references them as libraries. `packaging/build-yak.sh` packages both host builds with notices, examples, and Eigen-derived source.
+
+The current package is an engineering candidate for Rhino 8 and its bundled Grasshopper. Installed SDK probes are not interactive host qualification. Live Rhino and Grasshopper loading and workflow testing, minimum host compatibility and Windows remain open. Grasshopper 2 is a separate Rhino 9 integration and is outside this project’s present qualification.

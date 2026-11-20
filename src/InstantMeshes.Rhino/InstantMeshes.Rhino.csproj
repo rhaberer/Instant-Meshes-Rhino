@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetExt>.rhp</TargetExt>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../InstantMeshes.RhinoGeometry/InstantMeshes.RhinoGeometry.csproj" />
+    <PackageReference Include="RhinoCommon" Version="$(RhinoSdkVersion)" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>

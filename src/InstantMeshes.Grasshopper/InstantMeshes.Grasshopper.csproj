@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetExt>.gha</TargetExt>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/ComponentIcon.png" LogicalName="InstantMeshes.Grasshopper.ComponentIcon.png" />
+    <!-- Compile the shared solver and adapter into the GHA for a single-file install. -->
+    <Compile Include="../InstantMeshes.Core/**/*.cs"
+             Exclude="../InstantMeshes.Core/bin/**;../InstantMeshes.Core/obj/**;../InstantMeshes.Core/AssemblyInfo.cs"
+             LinkBase="Core" />
+    <Compile Include="../InstantMeshes.RhinoGeometry/**/*.cs"
+             Exclude="../InstantMeshes.RhinoGeometry/bin/**;../InstantMeshes.RhinoGeometry/obj/**"
+             LinkBase="RhinoGeometry" />
+    <PackageReference Include="Grasshopper" Version="$(RhinoSdkVersion)" ExcludeAssets="runtime" />
+    <PackageReference Include="RhinoCommon" Version="$(RhinoSdkVersion)" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>

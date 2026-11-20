@@ -1,0 +1,85 @@
+{
+  "torus.obj": {
+    "kind": "triangle-mesh",
+    "vertices": 960,
+    "triangles": 1920,
+    "boundary_edges": 0,
+    "purpose": "Closed genus-one surface with inner and outer curvature",
+    "cases": [
+      {
+        "name": "pure-quads",
+        "target_vertices": 240,
+        "flags": "-r 4 -p 4 -S 2"
+      },
+      {
+        "name": "triangles",
+        "target_vertices": 240,
+        "flags": "-r 6 -p 6 -S 2"
+      }
+    ],
+    "sha256": "2c53b3d38b910d489af3073bcb5f463355b560d955a75a8f8eb51fc262ff4d5a"
+  },
+  "angle-bracket.obj": {
+    "kind": "triangle-mesh",
+    "vertices": 468,
+    "triangles": 932,
+    "boundary_edges": 0,
+    "purpose": "Convex edges and a concave right-angle corner for crease preservation",
+    "cases": [
+      {
+        "name": "crease",
+        "target_vertices": 240,
+        "flags": "-c 35 -D -S 2"
+      }
+    ],
+    "sha256": "dc647d8e69d483952c746fdf8fe940fe09c26d28e8a4ef2cf97e0cf025bb0fe7"
+  },
+  "nearby-sheets.obj": {
+    "kind": "triangle-mesh",
+    "vertices": 1102,
+    "triangles": 2016,
+    "boundary_edges": 184,
+    "purpose": "Two nearby disconnected surfaces, uneven sampling and open boundaries",
+    "cases": [
+      {
+        "name": "open-boundaries",
+        "target_vertices": 220,
+        "flags": "-b -D -S 2"
+      },
+      {
+        "name": "without-reprojection",
+        "target_vertices": 220,
+        "flags": "-b -D -S 0"
+      }
+    ],
+    "sha256": "d1501d0e0306d72791fa53b201c59e76fc61f94e4bdb51cb69b524f681b1891e"
+  },
+  "torus-dense.obj": {
+    "kind": "triangle-mesh",
+    "vertices": 34560,
+    "triangles": 69120,
+    "boundary_edges": 0,
+    "purpose": "69,120 triangles for measuring solver time and memory as mesh size increases",
+    "cases": [
+      {
+        "name": "performance",
+        "target_vertices": 2000,
+        "flags": "-r 4 -p 4 -S 2"
+      }
+    ],
+    "sha256": "ee66f4c97cc214a4cbd7377ad1847ff0217ba0fc1883024f4eef99089f2b424e"
+  },
+  "torus-points.ply": {
+    "kind": "oriented-point-cloud",
+    "points": 960,
+    "purpose": "Normal-aware nearest-neighbor and point-cloud reconstruction path",
+    "cases": [
+      {
+        "name": "point-cloud",
+        "target_vertices": 160,
+        "flags": "-k 10 -D -S 2"
+      }
+    ],
+    "sha256": "26958ba225a021c26acb562c0e2634b4fc22fff581a78abb81de57bfccc94b16"
+  }
+}

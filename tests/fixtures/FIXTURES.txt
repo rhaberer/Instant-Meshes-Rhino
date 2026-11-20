@@ -1,0 +1,73 @@
+Local Instant Meshes fixture set
+
+Keep the original small grid, sphere and creased patch suite for fast stage
+diagnostics. This directory includes broader geometry and matched options for the
+parity and performance comparisons.
+
+Generated fixtures
+    Torus, 1,920 triangles              Closed genus one, quads and triangles
+    Angle bracket, 932 triangles      Sharp convex and concave edges
+    Nearby sheets, 2,016 triangles      Separate surfaces and boundary alignment
+    Dense torus, 69,120 triangles        Medium benchmark with regular connectivity
+    Oriented torus, 960 points          Point-cloud reconstruction with normals
+
+Provider fixtures
+    Spot, 5,856 triangles               Clean organic shape with small features
+    Stanford Bunny, 69,451 triangles    Scan irregularity and five openings
+    Armadillo, 345,944 triangles        Dense scan for time and memory scaling
+
+Spot comes from Keenan Crane's CMU model repository under CC0 1.0. Stanford
+Bunny and Armadillo come from the Stanford Computer Graphics Laboratory.
+The Stanford repository permits research use with attribution and requires
+permission for commercial uses. Keep these benchmark files out of the plugin
+package and listing assets. The provider manifest records the original URLs,
+attribution, source archive SHA-256, prepared OBJ SHA-256 and target settings.
+The adapters keep positions, triangle indices and their order and discard texture
+coordinates and scan attributes.
+
+Run the commands in this guide from tests/fixtures. Each fixtures.json includes
+the case settings. Regenerate the synthetic files with:
+
+    python3 extended_fixtures.py generated
+
+The source snapshot includes the provider URLs and hashes in providers/fixtures.json.
+To prepare the meshes locally, download the three listed archives as spot.zip,
+bunny.tar.gz and Armadillo.ply.gz. Use a separate output folder for preparation:
+
+    python3 prepare_provider_fixtures.py ARCHIVE_DIR /tmp/im-provider-fixtures
+    diff providers/fixtures.json /tmp/im-provider-fixtures/fixtures.json
+    cp /tmp/im-provider-fixtures/*.obj providers/
+
+If the hashes differ, keep the retained manifest and verify the source archives
+before using the new meshes. Omit --generated-only to test the provider meshes
+after preparation. The historical private mesh requires a separate local input.
+
+Reproduce the stable topology smoke comparison
+    1. Set PORT_SCRATCH to the absolute path of a scratch copy of the pinned
+       InstantMeshesPort with its vendor sources. Run make parity there.
+    2. Compile check/native.cpp against that scratch copy, for example:
+       clang++ -std=c++14 -O2 -I"$PORT_SCRATCH/native" check/native.cpp \
+         "$PORT_SCRATCH/build/native/libinstantmeshes.a" -o /tmp/im-fixture-native
+    3. dotnet build check/managed -c Release
+    4. python3 check/run.py --native /tmp/im-fixture-native --generated-only
+
+The runner writes check/results/fixture-smoke.json. Failed connectivity checks
+are recorded as false so the remaining cases still run. STATUS.md links to the
+historical candidate reports. PERFORMANCE.md records the release timing methods,
+results, and reproduction steps at the project root.
+
+Parity on Apple Silicon
+
+Nine of ten stable cases match the pinned port in ordered connectivity and
+every coordinate. Both modes of the oriented torus also match the pinned port
+on radius, directed candidates, final adjacency and fields. The native
+reference runner in tests/reference/run.py traces those stages end to end.
+
+Bunny matches the pinned port in ordinary arithmetic with 10,012 vertices and
+9,941 faces at a 2,500-vertex target. The pinned stable result diverges at
+level-zero coarsening because its zero-area score comparator is intransitive.
+With --reference-score-policy the runner applies the managed area policy to
+the scratch C++ build. Stable Bunny then matches all ordered indices and all
+positions with 10,001 vertices and 9,927 faces. The two reference reports and
+the cycle in the native comparator are in the historical snapshot linked from
+STATUS.md.

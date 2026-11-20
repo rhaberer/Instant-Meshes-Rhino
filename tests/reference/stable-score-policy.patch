@@ -1,0 +1,47 @@
+--- a/vendor/instant-meshes/src/hierarchy.cpp
++++ b/vendor/instant-meshes/src/hierarchy.cpp
+@@ -39,6 +39,34 @@
+                static_cast<__int128>(instant_meshes_port::FixedPoint::fromFloat(rhs.z()).raw);
+ }
+ 
++// Diagnostic equivalent of the managed stable-area policy.
++static void regularize_unordered_areas(const AdjacencyMatrix adj, const MatrixXf &N, VectorXf &A) {
++    int firstSign = 0;
++    bool ambiguous = false;
++    for (int i = 0; i < N.cols() && !ambiguous; ++i) {
++        for (const Link *link = adj[i]; link != adj[i + 1]; ++link) {
++            uint32_t j = link->id;
++            if (A[i] > 0 && A[j] > 0)
++                continue;
++            __int128 dot = fixed_hierarchy_dot_raw(N.col(i), N.col(j));
++            int sign = (dot > 0) - (dot < 0);
++            if ((A[i] == 0 && A[j] == 0) || sign == 0 || (firstSign != 0 && sign != firstSign)) {
++                ambiguous = true;
++                break;
++            }
++            firstSign = sign;
++        }
++    }
++    if (!ambiguous)
++        return;
++    for (int i = 0; i < N.cols(); ++i) {
++        for (const Link *link = adj[i]; link != adj[i + 1]; ++link) {
++            A[i] = std::max(A[i], 1e-6f);
++            A[link->id] = std::max(A[link->id], 1e-6f);
++        }
++    }
++}
++
+ static inline uint64_t hash_fixed_value(uint64_t hash, int64_t value) {
+     uint64_t bits = static_cast<uint64_t>(value);
+     for (int byte = 0; byte < 8; ++byte) {
+@@ -604,6 +632,9 @@
+         MatrixXu toUpper;
+         VectorXu toLower;
+ 
++        if (im_browser_stable)
++            regularize_unordered_areas(mAdj[i], mN[i], mA[i]);
++
+         AdjacencyMatrix adj_p =
+             downsample_graph(mAdj[i], mV[i], mN[i], mA[i], V_p, N_p, A_p,
+                              toUpper, toLower, deterministic, progress);
