@@ -3,6 +3,16 @@ set -euo pipefail
 
 project="$(cd "$(dirname "$0")/.." && pwd)"
 release_dir="${1:-$project/artifacts/release}"
+platforms=("${@:2}")
+if [[ "${#platforms[@]}" == 0 ]]; then
+    platforms=(mac)
+fi
+for platform in "${platforms[@]}"; do
+    case "$platform" in
+        mac|win) ;;
+        *) printf 'Unsupported Yak platform: %s\n' "$platform" >&2; exit 1 ;;
+    esac
+done
 yak_tool="${YAK_TOOL:-/Applications/Rhino 8.app/Contents/Resources/bin/yak}"
 mkdir -p "$release_dir"
 release_dir="$(cd "$release_dir" && pwd)"
@@ -23,6 +33,8 @@ cp "$project/examples/Instant Meshes - Options.gh" "$project/examples/Instant Me
 cp "$project/src/InstantMeshes.Core/ProjectionSvd.cs" "$package_stage/source/"
 (
     cd "$package_stage"
-    "$yak_tool" build --platform mac
-    cp ./*.yak "$release_dir/"
+    for platform in "${platforms[@]}"; do
+        "$yak_tool" build --platform "$platform"
+        mv ./*.yak "$release_dir/"
+    done
 )

@@ -12,12 +12,13 @@ The remeshing algorithm runs entirely in C# inside Rhino’s .NET process. The R
 
 ## Download and install
 
-Download the package you want from [GitHub Releases](https://github.com/rhaberer/Instant-Meshes-Rhino/releases).
+In Rhino 8 SR32 or later on Windows or macOS, open **`_PackageManager`**, search for `instant-meshes-rhino`, click **Install**, and restart Rhino. This installs the Rhino command, both Grasshopper components, and the two examples. [Rhino Package Manager help](https://docs.mcneel.com/rhino/8/help/en-us/commands/packagemanager.htm)
 
-- **Rhino and Grasshopper on macOS** · Download the `.yak` package. It contains the Rhino command, both Grasshopper components, and the Options and Typed examples.
-- **Grasshopper only** · Download `InstantMeshes.Grasshopper.gha` and the accompanying license notices. Copy the `.gha` to **File → Special Folders → Components Folder** in Grasshopper, then restart Rhino. The solver is built into the `.gha`. Use either the manual install or the Yak package to avoid loading duplicate components.
+On Windows, Rhino must run on .NET 8. If it’s configured to use .NET Framework, run **`_SetDotNetRuntime`**, choose **.NET Core**, and restart Rhino. [McNeel’s runtime guide](https://developer.rhino3d.com/en/guides/rhinocommon/moving-to-dotnet-core/#choosing-the-net-runtime-on-windows)
 
-The builds require Rhino 8 with modern .NET. SDK checks passed on Rhino 8 SR37 on macOS. Windows and a full interactive installation still need verification. [Compatibility and verification](STATUS.md#host-qualification)
+For an offline install, download the `.yak` matching your platform from [GitHub Releases](https://github.com/rhaberer/Instant-Meshes-Rhino/releases). For a Grasshopper-only install, download `InstantMeshes.Grasshopper.gha` and the accompanying license notices. Copy the `.gha` to **File → Special Folders → Components Folder** in Grasshopper, then restart Rhino. Use one installation method to avoid duplicate components.
+
+SDK checks passed on Rhino 8 SR37 on macOS. Interactive testing in Rhino and Grasshopper is still pending. [Compatibility and verification](STATUS.md#host-qualification)
 
 - In Rhino, run **InstantMeshesRemesh** and select a mesh or oriented point cloud. The command adds a new mesh alongside the original.
 - In Grasshopper, look under **Mesh → IM**. **Instant Meshes** has an optional target vertex count and **Options** text input. **Instant Meshes (Typed)** exposes the settings individually. Right-click either component and select **Help** for setup, examples, and source links.
@@ -33,6 +34,15 @@ Quit Rhino, open Terminal in the folder containing the downloaded package, and r
 ~~~
 
 Restart Rhino after installation. In Rhino's command line, use `_PackageManager` to open the package browser. The underscore selects the English command name on localized installations. McNeel documents `_-PackageManager _Search` for pre-filling the browser search, while the Terminal command above installs an archive directly. [Rhino 8 Mac Package Manager](https://docs.mcneel.com/rhino/8mac/help/en-us/commands/packagemanager.htm) · [Yak install reference](https://developer.rhino3d.com/guides/yak/yak-cli-reference/)
+
+### Install a local Yak package on Windows
+
+Quit Rhino and run the following in PowerShell from the folder containing the downloaded package. Then start Rhino again.
+
+~~~powershell
+& "$env:ProgramFiles\Rhino 8\System\Yak.exe" install `
+  .\instant-meshes-rhino-1.0.0-rh8_32-win.yak
+~~~
 
 Choose one target among edge length, faces, and vertices, or leave density on Auto. Edge length uses document units. Targets are approximate, especially when pure-quad output subdivides the mesh. Enter **-v 1000 -D -b -S 2** in Options to request 1,000 vertices, quad-dominant output, boundary alignment, and two smoothing passes. Recognized standalone-only switches produce warnings. The output carries geometry and normals. Input UVs, vertex colors, and custom attributes are outside the conversion. [Grasshopper options](OPTIONS.md)
 
@@ -67,13 +77,13 @@ For a manual Grasshopper install, locate the destination with **File → Special
 
 ### Build a Yak package
 
-For a Grasshopper-only Yak package, stage the `.gha` beside `manifest.yml` and include the notices, licenses, and corresponding Eigen-derived source listed in [NOTICE.md](NOTICE.md). This project's full package also includes the Rhino command, its companion DLLs, and examples. On macOS with Rhino 8 installed, the script stages those files and builds a `.yak` in `artifacts/release/` by default. The command below uses a separate directory for development builds. [Yak package layout](https://developer.rhino3d.com/en/guides/yak/the-anatomy-of-a-package/)
+For a Grasshopper-only Yak package, stage the `.gha` beside `manifest.yml` and include the notices, licenses, and corresponding Eigen-derived source listed in [NOTICE.md](NOTICE.md). This project's full package also includes the Rhino command, its companion DLLs, and examples. The same .NET assemblies support both platform distributions. On macOS with Rhino 8 installed, run the following to build both packages. Set `YAK_TOOL` to use the standalone Yak CLI on other build hosts. [Yak package layout](https://developer.rhino3d.com/en/guides/yak/the-anatomy-of-a-package/)
 
 ~~~sh
-bash packaging/build-yak.sh "$PWD/artifacts/dev-release"
+bash packaging/build-yak.sh "$PWD/artifacts/dev-release" mac win
 ~~~
 
-To install the development build, run the Yak command above from `artifacts/dev-release`.
+Run `bash packaging/build-release.sh v1.0.0` to build both Yak packages, the standalone `.gha`, and the license notices into `artifacts/release/v1.0.0/`.
 
 See [parity and compatibility](STATUS.md#reproduce) for commands to reproduce the native comparisons and [notices](NOTICE.md) for the original work and pinned revisions.
 

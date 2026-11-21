@@ -26,7 +26,7 @@ The C# solver assigns one area quantum to affected linked zero-area vertices whe
 
 Release builds and option tests passed. The archive passed integrity, binary identity, and isolated Yak install/removal checks. Yak reports differences between the plugin assembly's default name and version and the package metadata. Local search, installation and removal passed. An out-of-process probe using the installed Rhino 8 SR37 (8.37.26307.15002, arm64) assemblies exercised mesh and point-cloud conversion, Grasshopper inputs, and the example document round-trip.
 
-Interactive loading and workflows in Rhino and Grasshopper, the minimum service release, and Windows are still unverified. The code targets .NET 8 with the Rhino 8.32 reference SDK. SR37 is the primary qualification host. Grasshopper 2 requires a separate Rhino 9 integration.
+Version 1.0.0 has Yak distributions for Windows and macOS with the `rh8_32` compatibility tag. The code targets .NET 8 with the Rhino 8.32 reference SDK. SR37 on macOS is the SDK qualification host. Interactive loading and workflows in Rhino and Grasshopper, including on Windows, are still unverified. Grasshopper 2 requires a separate Rhino 9 integration.
 
 The 0.1.3 core method definitions and IL match all 694 in the timed 0.1.2 build. All 163 reflected public core API entries match. The historical snapshot includes the package SHA-256 and IL comparison.
 

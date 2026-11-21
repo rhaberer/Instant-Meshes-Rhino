@@ -14,3 +14,4 @@ __pycache__/
 
 # Generated packages, benchmarks, and parity reports
 /artifacts/
+/.mcneel/

@@ -21,14 +21,18 @@ release_dir="${2:-$project/artifacts/release/$tag}"
 stage="$(mktemp -d "${TMPDIR:-/tmp}/instant-meshes-release.XXXXXXXX")"
 trap 'rm -rf -- "$stage"' EXIT
 
-bash "$project/packaging/build-yak.sh" "$stage"
+bash "$project/packaging/build-yak.sh" "$stage" mac win
 shopt -s nullglob
-packages=("$stage"/instant-meshes-rhino-"$version"-rh8*-mac.yak)
-if [[ "${#packages[@]}" != 1 ]]; then
-    printf 'Expected exactly one Rhino 8 macOS Yak package for %s.\n' "$tag" >&2
-    exit 1
-fi
-unzip -tq "${packages[0]}"
+packages=()
+for platform in mac win; do
+    platform_packages=("$stage"/instant-meshes-rhino-"$version"-rh8*-"$platform".yak)
+    if [[ "${#platform_packages[@]}" != 1 ]]; then
+        printf 'Expected exactly one Rhino 8 Yak package for %s on %s.\n' "$tag" "$platform" >&2
+        exit 1
+    fi
+    unzip -tq "${platform_packages[0]}"
+    packages+=("${platform_packages[0]}")
+done
 
 cp "$project/src/InstantMeshes.Grasshopper/bin/Release/net8.0/InstantMeshes.Grasshopper.gha" "$stage/"
 repository="${GITHUB_SERVER_URL:-https://github.com}/${GITHUB_REPOSITORY:-rhaberer/Instant-Meshes-Rhino}"
@@ -45,5 +49,5 @@ repository="${GITHUB_SERVER_URL:-https://github.com}/${GITHUB_REPOSITORY:-rhaber
 } > "$stage/InstantMeshes-Licenses-and-Notices.txt"
 
 mkdir -p "$release_dir"
-cp "${packages[0]}" "$stage/InstantMeshes.Grasshopper.gha" \
+cp "${packages[@]}" "$stage/InstantMeshes.Grasshopper.gha" \
     "$stage/InstantMeshes-Licenses-and-Notices.txt" "$release_dir/"
