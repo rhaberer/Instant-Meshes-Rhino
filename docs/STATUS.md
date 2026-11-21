@@ -1,6 +1,6 @@
 # Parity and compatibility
 
-For **1.0.0**, see the [downloads and installation steps](README.md#download-and-install) and [benchmark results](benchmarks/1.0.0.md). The parity and qualification results below are from the **0.1.3** engineering candidate. Its raw reports are preserved in the [historical source snapshot](https://github.com/rhaberer/Instant-Meshes-C-/blob/defc829e13d6694608c68e151fd82943c57d1cd0/InstantMeshesRhino-0.1.3.zip).
+For **1.0.0**, see the [downloads and installation steps](../README.md#download-and-install) and [benchmark results](../benchmarks/1.0.0.md). The parity and qualification results below are from the **0.1.3** engineering candidate. Its raw reports are preserved in the [historical source snapshot](https://github.com/rhaberer/Instant-Meshes-C-/blob/defc829e13d6694608c68e151fd82943c57d1cd0/InstantMeshesRhino-0.1.3.zip).
 
 ## Comparison results
 
@@ -32,7 +32,7 @@ The 0.1.3 core method definitions and IL match all 694 in the timed 0.1.2 build.
 
 ## Reproduce
 
-Use Python 3, .NET, Make, and Clang. Supply a clean local InstantMeshesPort checkout at the revision in [NOTICE.md](NOTICE.md), with its pinned vendor sources populated. If the vendor directory is missing, run `./scripts/vendor.sh` from the native checkout. It fetches the versions pinned by that checkout. Run the commands below from the C# project root. The runner builds the native reference in a temporary copy.
+Use Python 3, .NET, Make, and Clang. Supply a clean local InstantMeshesPort checkout at the revision in [NOTICE.md](../NOTICE.md), with its pinned vendor sources populated. If the vendor directory is missing, run `./scripts/vendor.sh` from the native checkout. It fetches the versions pinned by that checkout. Run the commands below from the C# project root. The runner builds the native reference in a temporary copy.
 
 ~~~sh
 python3 tests/reference/run.py --port ../InstantMeshesPort
@@ -41,4 +41,4 @@ python3 tests/reference/run.py --port ../InstantMeshesPort \
   --reference-score-policy --output /tmp/instant-meshes-policy
 ~~~
 
-Omit **--reference-score-policy** and use a separate output folder to compare against the unmodified port. Pass **--model-obj** with a local indexed triangle OBJ for the larger matrix. See the [fixture guide](tests/fixtures/FIXTURES.txt) for obtaining provider meshes locally.
+Omit **--reference-score-policy** and use a separate output folder to compare against the unmodified port. Pass **--model-obj** with a local indexed triangle OBJ for the larger matrix. See the [fixture guide](../tests/fixtures/FIXTURES.txt) for obtaining provider meshes locally.

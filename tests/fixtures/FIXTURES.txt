@@ -52,8 +52,8 @@ Reproduce the stable topology smoke comparison
     4. python3 check/run.py --native /tmp/im-fixture-native --generated-only
 
 The runner writes check/results/fixture-smoke.json. Failed connectivity checks
-are recorded as false so the remaining cases still run. STATUS.md links to the
-historical candidate reports. PERFORMANCE.md records the release timing methods,
+are recorded as false so the remaining cases still run. docs/STATUS.md links to the
+historical candidate reports. docs/PERFORMANCE.md records the release timing methods,
 results, and reproduction steps at the project root.
 
 Parity on Apple Silicon
@@ -70,4 +70,4 @@ With --reference-score-policy the runner applies the managed area policy to
 the scratch C++ build. Stable Bunny then matches all ordered indices and all
 positions with 10,001 vertices and 9,927 faces. The two reference reports and
 the cycle in the native comparator are in the historical snapshot linked from
-STATUS.md.
+docs/STATUS.md.

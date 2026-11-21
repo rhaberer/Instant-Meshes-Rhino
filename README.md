@@ -8,7 +8,7 @@ This project grew out of the original Instant Meshes by Wenzel Jakob, Marco Tari
 
 ## Why a C# rewrite?
 
-The remeshing algorithm runs entirely in C# inside Rhino’s .NET process. The Rhino command and Grasshopper components share the same solver, pass geometry in memory, report progress, and support cancellation during a solve. [Source map](ARCHITECTURE.md)
+The remeshing algorithm runs entirely in C# inside Rhino’s .NET process. The Rhino command and Grasshopper components share the same solver, pass geometry in memory, report progress, and support cancellation during a solve. [Source map](docs/ARCHITECTURE.md)
 
 ## Download and install
 
@@ -18,7 +18,7 @@ On Windows, Rhino must run on .NET 8. If it’s configured to use .NET Framework
 
 For an offline install, download the `.yak` matching your platform from [GitHub Releases](https://github.com/rhaberer/Instant-Meshes-Rhino/releases). For a Grasshopper-only install, download `InstantMeshes.Grasshopper.gha` and the accompanying license notices. Copy the `.gha` to **File → Special Folders → Components Folder** in Grasshopper, then restart Rhino. Use one installation method to avoid duplicate components.
 
-SDK checks passed on Rhino 8 SR37 on macOS. Interactive testing in Rhino and Grasshopper is still pending. [Compatibility and verification](STATUS.md#host-qualification)
+SDK checks passed on Rhino 8 SR37 on macOS. Interactive testing in Rhino and Grasshopper is still pending. [Compatibility and verification](docs/STATUS.md#host-qualification)
 
 - In Rhino, run **InstantMeshesRemesh** and select a mesh or oriented point cloud. The command adds a new mesh alongside the original.
 - In Grasshopper, look under **Mesh → IM**. **Instant Meshes** has an optional target vertex count and **Options** text input. **Instant Meshes (Typed)** exposes the settings individually. Right-click either component and select **Help** for setup, examples, and source links.
@@ -44,7 +44,7 @@ Quit Rhino and run the following in PowerShell from the folder containing the do
   .\instant-meshes-rhino-1.0.0-rh8_32-win.yak
 ~~~
 
-Choose one target among edge length, faces, and vertices, or leave density on Auto. Edge length uses document units. Targets are approximate, especially when pure-quad output subdivides the mesh. Enter **-v 1000 -D -b -S 2** in Options to request 1,000 vertices, quad-dominant output, boundary alignment, and two smoothing passes. Recognized standalone-only switches produce warnings. The output carries geometry and normals. Input UVs, vertex colors, and custom attributes are outside the conversion. [Grasshopper options](OPTIONS.md)
+Choose one target among edge length, faces, and vertices, or leave density on Auto. Edge length uses document units. Targets are approximate, especially when pure-quad output subdivides the mesh. Enter **-v 1000 -D -b -S 2** in Options to request 1,000 vertices, quad-dominant output, boundary alignment, and two smoothing passes. Recognized standalone-only switches produce warnings. The output carries geometry and normals. Input UVs, vertex colors, and custom attributes are outside the conversion. [Grasshopper options](docs/OPTIONS.md)
 
 ## Performance
 
@@ -57,7 +57,7 @@ Version **1.0.0** was benchmarked on 17 configurations against the pinned C++ po
 | Stanford Armadillo, 345,944 triangles | 2.949 s | 2.536 s | 14% lower |
 | Large torus, 377,280 triangles | 2.771 s | 2.364 s | 15% lower |
 
-Ordered faces and vertex coordinates matched in 33 of 34 comparisons. Stable Stanford Bunny reproduced the known topology difference. Timings exclude file I/O and process launch. [Method and historical upstream CLI comparison](PERFORMANCE.md) · [Parity and compatibility](STATUS.md)
+Ordered faces and vertex coordinates matched in 33 of 34 comparisons. Stable Stanford Bunny reproduced the known topology difference. Timings exclude file I/O and process launch. [Method and historical upstream CLI comparison](docs/PERFORMANCE.md) · [Parity and compatibility](docs/STATUS.md)
 
 ## Build and test locally
 
@@ -85,7 +85,7 @@ bash packaging/build-yak.sh "$PWD/artifacts/dev-release" mac win
 
 Run `bash packaging/build-release.sh v1.0.0` to build both Yak packages, the standalone `.gha`, and the license notices into `artifacts/release/v1.0.0/`.
 
-See [parity and compatibility](STATUS.md#reproduce) for commands to reproduce the native comparisons and [notices](NOTICE.md) for the original work and pinned revisions.
+See [parity and compatibility](docs/STATUS.md#reproduce) for commands to reproduce the native comparisons and [notices](NOTICE.md) for the original work and pinned revisions.
 
 ## License
 

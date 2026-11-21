@@ -39,6 +39,6 @@ Grasshopper supplies geometry and receives the mesh. One positional path, `-o` o
 
 ## Source references
 
-- [Grasshopper flag parser](src/InstantMeshes.Grasshopper/ConsoleOptions.cs) and [managed solver settings](src/InstantMeshes.Core/RemeshOptions.cs)
+- [Grasshopper flag parser](../src/InstantMeshes.Grasshopper/ConsoleOptions.cs) and [managed solver settings](../src/InstantMeshes.Core/RemeshOptions.cs)
 - [Original Instant Meshes source](https://github.com/wjakob/instant-meshes)
 - [Instant Field-Aligned Meshes paper](https://igl.ethz.ch/projects/instant-meshes/)
