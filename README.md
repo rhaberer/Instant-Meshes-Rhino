@@ -12,13 +12,16 @@ The remeshing algorithm runs entirely in C# inside Rhino’s .NET process. The R
 
 ## Download and install
 
-In Rhino 8 SR32 or later on Windows or macOS, open **`_PackageManager`**, search for `instant-meshes-rhino`, click **Install**, and restart Rhino. This installs the Rhino command, both Grasshopper components, and the two examples. [Rhino Package Manager help](https://docs.mcneel.com/rhino/8/help/en-us/commands/packagemanager.htm)
-
 On Windows, Rhino must run on .NET 8. If it’s configured to use .NET Framework, run **`_SetDotNetRuntime`**, choose **.NET Core**, and restart Rhino. [McNeel’s runtime guide](https://developer.rhino3d.com/en/guides/rhinocommon/moving-to-dotnet-core/#choosing-the-net-runtime-on-windows)
-
 For an offline install, download the `.yak` matching your platform from [GitHub Releases](https://github.com/rhaberer/Instant-Meshes-Rhino/releases). For a Grasshopper-only install, download `InstantMeshes.Grasshopper.gha` and the accompanying license notices. Copy the `.gha` to **File → Special Folders → Components Folder** in Grasshopper, then restart Rhino. Use one installation method to avoid duplicate components.
 
-SDK checks passed on Rhino 8 SR37 on macOS. Interactive testing in Rhino and Grasshopper is still pending. [Compatibility and verification](docs/STATUS.md#host-qualification)
+## Food4Rhino
+
+You can download the component [here](https://www.food4rhino.com/en/app/instant-meshes-rhino-and-grasshopper-full-c).
+
+## Rhino Package Manager
+
+In Rhino 8 SR32 or later on Windows or macOS, open **`_PackageManager`**, search for `instant-meshes-rhino`, click **Install**, and restart Rhino. This installs the Rhino command, both Grasshopper components, and the two examples. [Rhino Package Manager help](https://docs.mcneel.com/rhino/8/help/en-us/commands/packagemanager.htm)
 
 - In Rhino, run **InstantMeshesRemesh** and select a mesh or oriented point cloud. The command adds a new mesh alongside the original.
 - In Grasshopper, look under **Mesh → IM**. **Instant Meshes** has an optional target vertex count and **Options** text input. **Instant Meshes (Typed)** exposes the settings individually. Right-click either component and select **Help** for setup, examples, and source links.
