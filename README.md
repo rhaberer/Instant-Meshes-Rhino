@@ -10,7 +10,7 @@ This project grew out of the original Instant Meshes by Wenzel Jakob, Marco Tari
 
 The remeshing algorithm runs entirely in C# inside Rhino’s .NET process. The Rhino command and Grasshopper components share the same solver, pass geometry in memory, report progress, and support cancellation during a solve. [Source map](docs/ARCHITECTURE.md)
 
-## Download and install
+# Download and install
 
 On Windows, Rhino must run on .NET 8. If it’s configured to use .NET Framework, run **`_SetDotNetRuntime`**, choose **.NET Core**, and restart Rhino. [McNeel’s runtime guide](https://developer.rhino3d.com/en/guides/rhinocommon/moving-to-dotnet-core/#choosing-the-net-runtime-on-windows)
 For an offline install, download the `.yak` matching your platform from [GitHub Releases](https://github.com/rhaberer/Instant-Meshes-Rhino/releases). For a Grasshopper-only install, download `InstantMeshes.Grasshopper.gha` and the accompanying license notices. Copy the `.gha` to **File → Special Folders → Components Folder** in Grasshopper, then restart Rhino. Use one installation method to avoid duplicate components.
